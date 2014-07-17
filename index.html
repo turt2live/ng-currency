@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="ng-currency : ng-currency" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>ng-currency</title>
+    <title>ng-currency by aguirrel</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>ng-currency</h1>
+        <h2>ng-currency</h2>
+        <a href="https://github.com/aguirrel/ng-currency" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/aguirrel/ng-currency">View on GitHub</a>
-
-          <h1 id="project_title">ng-currency</h1>
-          <h2 id="project_tagline">ng-currency</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/aguirrel/ng-currency/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/aguirrel/ng-currency/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>ngCurrency is a directive that enables seamless use of currency inputs.  </p>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>ngCurrency is a directive that enables seamless use of currency inputs.  </p>
 
 <p>Main features:</p>
 
@@ -40,6 +37,7 @@
 <li>Input value is always filtered with locale currency when load and on blur.</li>
 <li>You may write the amount using locale decimal or use dot (.) as default.</li>
 <li>The only required dependency is <a href="https://github.com/angular/angular.js">angular</a>!</li>
+<li>Min and Max validators like input[number].</li>
 </ul><h2>
 <a name="bower" class="anchor" href="#bower"><span class="octicon octicon-link"></span></a>Bower</h2>
 
@@ -66,7 +64,7 @@
 </blockquote>
 
 <ul>
-<li>Inject the <code>ngStrap</code> module into your app:</li>
+<li>Inject the <code>ngCurrency</code> module into your app:</li>
 </ul><blockquote>
 <div class="highlight highlight-JavaScript"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ng-currency'</span><span class="p">]);</span>
 </pre></div>
@@ -74,8 +72,24 @@
 
 <ul>
 <li>In your input tag</li>
-</ul><pre><code>&lt;input type="text" model="yourModel" ng-currency&gt;
-</code></pre>
+</ul><blockquote>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">model=</span><span class="s">"yourModel"</span> <span class="na">ng-currency</span> <span class="nt">/&gt;</span>
+</pre></div>
+</blockquote>
+
+<ul>
+<li>It is also possible to add 'min' and 'max' validations</li>
+</ul><blockquote>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">model=</span><span class="s">"yourModel"</span> <span class="na">ng-currency</span> <span class="na">min=</span><span class="s">"1"</span> <span class="na">max=</span><span class="s">"1337"</span> <span class="nt">/&gt;</span>
+</pre></div>
+</blockquote>
+
+<ul>
+<li>If you want to be able to dynamically enable/disable validations from a controller you can use the following</li>
+</ul><blockquote>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">model=</span><span class="s">"yourModel"</span> <span class="na">ng-currency</span> <span class="na">min=</span><span class="s">"1"</span> <span class="na">max=</span><span class="s">"1337"</span> <span class="na">ng-required=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+</pre></div>
+</blockquote>
 
 <h2>
 <a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
@@ -90,6 +104,13 @@
 <ul>
 <li><a href="http://alaguirre.com">http://alaguirre.com</a></li>
 <li><a href="http://github.com/aguirrel">http://github.com/aguirrel</a></li>
+</ul><h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
+
+<p><strong>Guillermo Sandoval</strong></p>
+
+<ul>
+<li><a href="https://github.com/gsandoval">https://github.com/gsandoval</a></li>
 </ul><h2>
 <a name="copyright-and-license" class="anchor" href="#copyright-and-license"><span class="octicon octicon-link"></span></a>Copyright and license</h2>
 
@@ -115,18 +136,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </code></pre>
-      </section>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/aguirrel/ng-currency/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/aguirrel/ng-currency/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/aguirrel/ng-currency"></a> is maintained by <a href="https://github.com/aguirrel">aguirrel</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">ng-currency maintained by <a href="https://github.com/aguirrel">aguirrel</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  
   </body>
 </html>
