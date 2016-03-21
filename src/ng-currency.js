@@ -19,6 +19,8 @@ angular.module('ng-currency', [])
                 min: '=?min',
                 max: '=?max',
                 currencySymbol: '@',
+                displayZeros: '=?displayZeros',
+                selectOnFocus: '=?selectOnFocus',
                 ngRequired: '=?ngRequired',
                 fraction: '=?fraction'
             },
@@ -27,6 +29,8 @@ angular.module('ng-currency', [])
                 if (attrs.ngCurrency === 'false') return;
 
                 scope.fraction = (typeof scope.fraction !== 'undefined')?scope.fraction:2;
+                scope.displayZeros = (typeof scope.displayZeros !== 'undefined')?scope.displayZeros:false;
+                scope.selectOnFocus = (typeof scope.selectOnFocus !== 'undefined')?scope.selectOnFocus:false;
 
                 function decimalRex(dChar) {
                     return RegExp("\\d|\\-|\\" + dChar, 'g');
@@ -41,7 +45,11 @@ angular.module('ng-currency', [])
                     var dSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
                     var cleared = null;
 
-                    if(value.indexOf($locale.NUMBER_FORMATS.DECIMAL_SEP) == -1 && 
+                    if (!scope.displayZeros && value === '') {
+                        return value;
+                    }
+
+                    if(value.indexOf($locale.NUMBER_FORMATS.DECIMAL_SEP) == -1 &&
                        value.indexOf('.') != -1 &&
                        scope.fraction)
                     {
@@ -86,8 +94,12 @@ angular.module('ng-currency', [])
                         idx = formatters.length;
 
                     var viewValue = ngModel.$$rawModelValue;
-                    while (idx--) {
-                      viewValue = formatters[idx](viewValue);
+                    if (!scope.displayZeros && value !== null && value !== undefined && viewValue.length && parseFloat(viewValue) == 0) {
+                        viewValue = '';
+                    } else {
+                        while (idx--) {
+                          viewValue = formatters[idx](viewValue);
+                        }
                     }
 
                     ngModel.$setViewValue(viewValue);
@@ -102,7 +114,7 @@ angular.module('ng-currency', [])
                     {
                         cVal = ".0";
                     }
-                    return parseFloat(cVal);
+                    return (!scope.displayZeros && viewValue === '') ? 0 : parseFloat(cVal);
                 });
 
                 element.on("blur", function () {
@@ -111,6 +123,7 @@ angular.module('ng-currency', [])
                 });
 
                 ngModel.$formatters.unshift(function (value) {
+                    if (!scope.displayZeros && value !== null && value !== undefined && value.length && parseFloat(value) == 0) { return ''; }
                     return $filter('currency')(value, getCurrencySymbol(), scope.fraction);
                 });
 
@@ -123,7 +136,7 @@ angular.module('ng-currency', [])
                     }
                     return true;
                 };
-                
+
                 scope.$watch('min', function (val) {
                     ngModel.$validate();
                 });
@@ -151,9 +164,9 @@ angular.module('ng-currency', [])
                     return true;
                 };
 
-                scope.$on('currencyRedraw', function() { 
+                scope.$on('currencyRedraw', function() {
                     ngModel.$commitViewValue();
-                    reformatViewValue(); 
+                    reformatViewValue();
                 });
 
                 element.on('focus',function(){
@@ -161,7 +174,7 @@ angular.module('ng-currency', [])
 
                     if(isNaN(viewValue) || viewValue === '' || viewValue == null)
                     {
-                        viewValue = '';
+                        viewValue = scope.displayZeros ? '0.00' : '';
                     }
                     else
                     {
@@ -169,6 +182,11 @@ angular.module('ng-currency', [])
                     }
                     ngModel.$setViewValue(viewValue);
                     ngModel.$render();
+
+                    if(scope.selectOnFocus)
+                    {
+                        element[0].setSelectionRange(0, viewValue.length);
+                    }
                 });
             }
         }
